@@ -13,7 +13,8 @@
 
     $ans = pg_query($conn,$sql);
     if ($ans){
-        echo "User has been created successfully";
+        echo "<script>alert('user has been registerd')</script>";
+        header("refresh: 0; url= ../signin.html");
     }else{
         echo "Error: " . pg_last_error();
 }

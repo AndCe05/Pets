@@ -1,4 +1,4 @@
-cd<?php
+<?php
     //Database configuration
     $host      ='localhost';//=> 127.0.0.1
     $dbname    ='Pets';

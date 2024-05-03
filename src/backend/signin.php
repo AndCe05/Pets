@@ -1,25 +1,27 @@
 <?php
     include('../../config/database.php');
 
-    $fullname = $_POST['fname'];
-    $email = $_POST['email'];
-    $passwd = $_POST['passwd'];
+    $email=$_POST['email'];
+    $passwd=$_POST['passwd'];
     $enc_pass = md5($passwd);
 
     $sql = "
-        INSERT INTO users (fullname, email, password) 
-            VALUES ('$fullname', '$email','$enc_pass')
+        SELECT
+            *
+        FROM
+            users
+        WHERE
+            email = '$email' AND
+            password = '$enc_pass'
+        LIMIT 1
     ";
 
-    $ans = pg_query($conn,$sql);
-    if ($ans){
-        echo "User has been created successfully";
+    $result = pg_query($conn, $sql);
+    $total = pg_num_rows($result);
+
+    if ($total > 0){
+        header("refresh: 0; url= ../home.php");
     }else{
-        echo "Error: " . pg_last_error();
+        echo "Credenciales Incorrectas" ;
     }
-
-    //Close connection
-    pg_close($conn)
-
-    
 ?>
